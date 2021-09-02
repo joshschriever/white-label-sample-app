@@ -7,16 +7,16 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.extra
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.kotlin.dsl.register
-import java.io.File
 
 class WhiteLabelCustomerFlavorsPlugin : Plugin<Project> {
-
     override fun apply(project: Project) {
         project.tasks.register<PopulateCustomers>("populateCustomers")
 
         val customersFile = project.file(POPULATED_CUSTOMERS_FILE_NAME)
         customersFile.takeUnless { it.exists() }?.writeText("[]")
-        val customers = parseCustomers(customersFile)
+        val customers = Json
+            .nonstrict
+            .decodeFromString(SetSerializer(CustomerProperties.serializer()), customersFile.readText())
 
         project.extra[POPULATED_CUSTOMERS_PROPERTY_NAME] = customers
 
@@ -43,10 +43,6 @@ class WhiteLabelCustomerFlavorsPlugin : Plugin<Project> {
             }
         }
     }
-
-    private fun parseCustomers(customersFile: File): Set<CustomerProperties> = Json.nonstrict.decodeFromString(
-        SetSerializer(CustomerProperties.serializer()), customersFile.readText()
-    )
 }
 
 private const val CUSTOMER_DIMENSION = "customer"

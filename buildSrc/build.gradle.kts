@@ -23,7 +23,7 @@ dependencies {
     implementation(gradleKotlinDsl())
     implementation(kotlin("gradle-plugin", kotlinVersion))
     implementation(kotlin("serialization", kotlinVersion))
-    implementation("com.android.tools.build:gradle:$androidGradlePluginVersion")//TODO - use api artifact
+    implementation("com.android.tools.build:gradle:$androidGradlePluginVersion")
 
     implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
     implementation("io.ktor:ktor-client-auth-jvm:$ktorVersion")
