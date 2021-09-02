@@ -72,6 +72,10 @@ internal abstract class PopulateCustomers : DefaultTask() {
         val flavorDir = File(srcDir, customerProperties.flavorName).also { it.mkdir() }
         File(flavorDir, ".gitignore").writeText("*\n")
         File(flavorDir, TRANSIENT_FLAVOR_DIR_MARKER_NAME).writeText("\n")
+
+        File(flavorDir, "keystore/release.keystore")
+            .also { it.parentFile.mkdir() }
+            .writeBytes(AssetsRepo.get("customers/$customerId/android/release.keystore", logger))
     }
 
     companion object {
