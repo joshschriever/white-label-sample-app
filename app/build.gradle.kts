@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    id("white-label-customer-flavors")
 }
 
 android {
