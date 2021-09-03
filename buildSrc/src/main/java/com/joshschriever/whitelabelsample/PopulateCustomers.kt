@@ -76,6 +76,29 @@ internal abstract class PopulateCustomers : DefaultTask() {
         File(flavorDir, "keystore/release.keystore")
             .also { it.parentFile.mkdir() }
             .writeBytes(AssetsRepo.get("customers/$customerId/android/release.keystore", logger))
+
+        File(flavorDir, "java/com/joshschriever/whitelabelsample/app/CustomerId.kt")
+            .also { it.parentFile.mkdirs() }
+            .writeText(
+                """
+                    package com.joshschriever.whitelabelsample.app
+
+                    object CustomerId {
+                        const val id = "${customerProperties.customerId}"
+                    }
+
+                """.trimIndent()
+            )
+
+        File(flavorDir, "res/values/customer.xml")
+            .also { it.parentFile.mkdirs() }
+            .writeText(
+                xmlDocument("resources") {
+                    element("string", customerProperties.appName) {
+                        attribute("name", "app_name_${customerProperties.flavorName}")
+                    }
+                }
+            )
     }
 
     companion object {
