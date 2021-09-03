@@ -10,7 +10,6 @@ android {
     defaultConfig {
         minSdk = 21
         targetSdk = 30
-        applicationId = "com.joshschriever.whitelabelsample.app"
         versionCode = 1
         versionName = "1.0"
     }

@@ -99,6 +99,15 @@ internal abstract class PopulateCustomers : DefaultTask() {
                     }
                 }
             )
+
+        File(flavorDir, "AndroidManifest.xml").writeText(
+            xmlDocument("manifest") {
+                attribute("xmlns:android", "http://schemas.android.com/apk/res/android")
+                element("application") {
+                    attribute("android:label", "@string/app_name_${customerProperties.flavorName}")
+                }
+            }
+        )
     }
 
     companion object {
