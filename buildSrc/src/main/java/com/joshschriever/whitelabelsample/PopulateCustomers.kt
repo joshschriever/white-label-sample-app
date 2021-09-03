@@ -108,9 +108,44 @@ internal abstract class PopulateCustomers : DefaultTask() {
                 }
             }
         )
+
+        drawableDensities.forEach { density ->
+            val densityDir = File(flavorDir, "res/$density").apply { mkdir() }
+            setOf(
+                "ic_launcher.png",
+                "ic_launcher_foreground.png",
+                "ic_launcher_background.png"
+            ).forEach {
+                File(densityDir, it)
+                    .writeBytes(AssetsRepo.get("customers/$customerId/android/$density/$it", logger))
+            }
+        }
+
+        setOf(
+            Triple("customer_logo_portrait.png", "-port", "customer_logo_${customerProperties.flavorName}.png"),
+            Triple("customer_logo_landscape.png", "-land", "customer_logo_${customerProperties.flavorName}.png")
+        ).forEach { (remoteFileName, orientation, localFileName) ->
+            File(flavorDir, "res/drawable$orientation-nodpi/$localFileName")
+                .also { it.parentFile.mkdir() }
+                .writeBytes(AssetsRepo.get("customers/$customerId/themes/light/$remoteFileName", logger))
+
+            AssetsRepo.getIfExists<ByteArray>("customers/$customerId/themes/dark/$remoteFileName", logger)?.let { bytes ->
+                File(flavorDir, "res/drawable$orientation-night-nodpi/$localFileName")
+                    .also { it.parentFile.mkdir() }
+                    .writeBytes(bytes)
+            }
+        }
     }
 
     companion object {
         private const val TRANSIENT_FLAVOR_DIR_MARKER_NAME = ".transient-customer-flavor-dir-marker"
+
+        private val drawableDensities = listOf(
+            "drawable-mdpi",
+            "drawable-hdpi",
+            "drawable-xhdpi",
+            "drawable-xxhdpi",
+            "drawable-xxxhdpi"
+        )
     }
 }
