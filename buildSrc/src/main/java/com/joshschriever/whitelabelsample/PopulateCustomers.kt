@@ -75,6 +75,8 @@ internal abstract class PopulateCustomers : DefaultTask() {
         File(flavorDir, ".gitignore").writeText("*\n")
         File(flavorDir, TRANSIENT_FLAVOR_DIR_MARKER_NAME).writeText("\n")
 
+        // The keystore file and the credentials for it in the json file are stored in GitHub for
+        // simplicity, but for a real app these should be stored somewhere more secure, such as Vault
         File(flavorDir, "keystore/release.keystore")
             .also { it.parentFile.mkdir() }
             .writeBytes(AssetsRepo.get("customers/$customerId/android/release.keystore", logger))
