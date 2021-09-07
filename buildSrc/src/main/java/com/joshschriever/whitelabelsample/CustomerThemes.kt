@@ -1,15 +1,18 @@
 package com.joshschriever.whitelabelsample
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 internal data class CustomerThemes(
-    val light: CustomerTheme,
-    val dark: CustomerTheme
-)
-
-@Serializable
-internal data class CustomerTheme(
-    val placeholderColorOne: String,
-    val placeholderColorTwo: String
-)
+    val light: JsonObject,
+    val dark: JsonObject
+) {
+    companion object {
+        val themeColorNames = listOf(
+            "backgroundColor",
+            "primaryTextColor",
+            "secondaryTextColor"
+        )
+    }
+}

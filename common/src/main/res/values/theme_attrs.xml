@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="app_name" format="string|reference"/>
+
+    <attr name="customer_logo" format="reference"/>
+
+    <attr name="backgroundColor" format="color|reference"/>
+    <attr name="primaryTextColor" format="color|reference"/>
+    <attr name="secondaryTextColor" format="color|reference"/>
+</resources>

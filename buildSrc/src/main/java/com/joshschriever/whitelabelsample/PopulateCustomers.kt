@@ -1,6 +1,8 @@
 package com.joshschriever.whitelabelsample
 
 import kotlinx.serialization.builtins.SetSerializer
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.JsonPrimitive
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Input
@@ -135,6 +137,49 @@ internal abstract class PopulateCustomers : DefaultTask() {
                     .writeBytes(bytes)
             }
         }
+
+        val customerThemes = AssetsRepo.get<CustomerThemes>("customers/$customerId/themes/themes.json", logger)
+
+        fun resourcesXmlForTheme(themeJson: JsonObject) = xmlDocument("resources") {
+            CustomerThemes.themeColorNames.forEach { colorName ->
+                element("color", (themeJson.getValue(colorName) as JsonPrimitive).content) {
+                    attribute("name", "${colorName}_${customerProperties.flavorName}")
+                }
+            }
+        }
+
+        File(flavorDir, "res/values/theme_values.xml")
+            .also { it.parentFile.mkdir() }
+            .writeText(resourcesXmlForTheme(customerThemes.light))
+
+        File(flavorDir, "res/values-night/theme_values.xml")
+            .also { it.parentFile.mkdir() }
+            .writeText(resourcesXmlForTheme(customerThemes.dark))
+
+        File(flavorDir, "res/values/styles.xml")
+            .also { it.parentFile.mkdir() }
+            .writeText(
+                xmlDocument("resources") {
+                    element("style") {
+                        attribute("name", "CustomerTheme")
+                        attribute("parent", "Theme.AppCompat.DayNight.NoActionBar")
+
+                        CustomerThemes.themeColorNames
+                            .map { "color" to it }
+                            .plus(
+                                setOf(
+                                    "string" to "app_name",
+                                    "drawable" to "customer_logo"
+                                )
+                            )
+                            .forEach { (resourceType, resourceName) ->
+                                element("item", "@$resourceType/${resourceName}_${customerProperties.flavorName}") {
+                                    attribute("name", resourceName)
+                                }
+                            }
+                    }
+                }
+            )
     }
 
     companion object {
