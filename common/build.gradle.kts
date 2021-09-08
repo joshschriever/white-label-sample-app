@@ -10,6 +10,12 @@ android {
         minSdk = 21
         targetSdk = 30
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.2"
+    }
 }
 
 repositories {
@@ -18,5 +24,6 @@ repositories {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.compose.foundation:foundation:1.0.2")
+    implementation("androidx.compose.ui:ui:1.0.2")
 }

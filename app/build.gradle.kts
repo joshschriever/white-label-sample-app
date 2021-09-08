@@ -13,6 +13,12 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.0.2"
+    }
 }
 
 repositories {
@@ -25,5 +31,6 @@ dependencies {
     implementation(project(":featureone"))
     implementation(project(":featuretwo"))
 
-    implementation("androidx.appcompat:appcompat:1.3.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.compose.ui:ui:1.0.2")
 }

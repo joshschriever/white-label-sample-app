@@ -182,6 +182,47 @@ internal abstract class PopulateCustomers : DefaultTask() {
                     }
                 }
             )
+
+        File(flavorDir, "java/com/joshschriever/whitelabelsample/app/CustomerThemeBuilder.kt")
+            .writeText(
+                """
+                    package com.joshschriever.whitelabelsample.app
+
+                    import androidx.compose.runtime.Composable
+                    import androidx.compose.ui.res.colorResource
+                    import androidx.compose.ui.res.painterResource
+                    import androidx.compose.ui.res.stringResource
+                    import com.joshschriever.whitelabelsample.common.CustomerColors
+                    import com.joshschriever.whitelabelsample.common.CustomerImages
+                    import com.joshschriever.whitelabelsample.common.CustomerStrings
+                    import com.joshschriever.whitelabelsample.common.CustomerThemeProvider
+
+                    object CustomerThemeBuilder : CustomerThemeProvider.ThemeBuilder {
+                        @Composable override fun colors() = customerColors()
+                        @Composable override fun strings() = customerStrings()
+                        @Composable override fun images() = customerImages()
+                    }
+
+                    @Composable
+                    internal fun customerColors() = CustomerColors(
+
+                """.trimIndent() +
+                    CustomerThemes.themeColorNames.joinToString(",\n") { "    $it = colorResource(R.color.${it}_${customerProperties.flavorName})" } + """
+
+                    )
+
+                    @Composable
+                    internal fun customerStrings() = CustomerStrings(
+                        appName = stringResource(R.string.app_name_${customerProperties.flavorName})
+                    )
+
+                    @Composable
+                    internal fun customerImages() = CustomerImages(
+                        customerLogo = painterResource(R.drawable.customer_logo_${customerProperties.flavorName})
+                    )
+
+                """.trimIndent()
+            )
     }
 
     companion object {

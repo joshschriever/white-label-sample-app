@@ -3,19 +3,24 @@ package com.joshschriever.whitelabelsample.app
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.joshschriever.whitelabelsample.common.CommonPlaceholder.FOO
-import com.joshschriever.whitelabelsample.featureone.FeatureOnePlaceholder.BAR
-import com.joshschriever.whitelabelsample.featuretwo.FeatureTwoPlaceholder.BAZ
+import androidx.compose.ui.platform.ComposeView
+import com.joshschriever.whitelabelsample.common.CustomerThemeProvider
+import com.joshschriever.whitelabelsample.featuretwo.CustomerInfoScreen
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-    }
 
-    override fun onResume() {
-        super.onResume()
-        findViewById<TextView>(R.id.text).text = "$FOO $BAR $BAZ"
+        // Crude dependency injection for the sake of example
+        CustomerThemeProvider.customerThemeBuilder = CustomerThemeBuilder
+
+        setContentView(R.layout.activity_main)
+
+        findViewById<ComposeView>(R.id.compose_view).setContent {
+            CustomerInfoScreen()
+        }
+
+        findViewById<TextView>(R.id.customer_id).text = CustomerId.id
     }
 }
