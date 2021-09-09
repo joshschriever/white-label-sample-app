@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("androidx.appcompat:appcompat:1.3.1")
     implementation("androidx.compose.foundation:foundation:1.0.2")
     implementation("androidx.compose.ui:ui:1.0.2")
 }

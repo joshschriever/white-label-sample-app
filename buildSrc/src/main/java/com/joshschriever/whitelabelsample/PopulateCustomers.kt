@@ -198,28 +198,20 @@ internal abstract class PopulateCustomers : DefaultTask() {
                     import com.joshschriever.whitelabelsample.common.CustomerThemeProvider
 
                     object CustomerThemeBuilder : CustomerThemeProvider.ThemeBuilder {
-                        @Composable override fun colors() = customerColors()
-                        @Composable override fun strings() = customerStrings()
-                        @Composable override fun images() = customerImages()
+                        @Composable override fun colors() = CustomerColors(
+
+                """.trimIndent() + CustomerThemes.themeColorNames.joinToString(",\n") {
+                    "        $it = colorResource(R.color.${it}_${customerProperties.flavorName})"
+                } + """
+
+                        )
+                        @Composable override fun strings() = CustomerStrings(
+                            appName = stringResource(R.string.app_name_${customerProperties.flavorName})
+                        )
+                        @Composable override fun images() = CustomerImages(
+                            customerLogo = painterResource(R.drawable.customer_logo_${customerProperties.flavorName})
+                        )
                     }
-
-                    @Composable
-                    internal fun customerColors() = CustomerColors(
-
-                """.trimIndent() +
-                    CustomerThemes.themeColorNames.joinToString(",\n") { "    $it = colorResource(R.color.${it}_${customerProperties.flavorName})" } + """
-
-                    )
-
-                    @Composable
-                    internal fun customerStrings() = CustomerStrings(
-                        appName = stringResource(R.string.app_name_${customerProperties.flavorName})
-                    )
-
-                    @Composable
-                    internal fun customerImages() = CustomerImages(
-                        customerLogo = painterResource(R.drawable.customer_logo_${customerProperties.flavorName})
-                    )
 
                 """.trimIndent()
             )

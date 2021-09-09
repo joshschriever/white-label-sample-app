@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <style name="DebugTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <item name="backgroundColor">@color/backgroundColor_debug</item>
+    <item name="primaryTextColor">@color/primaryTextColor_debug</item>
+    <item name="secondaryTextColor">@color/secondaryTextColor_debug</item>
+    <item name="app_name">@string/app_name_debug</item>
+    <item name="customer_logo">@drawable/customer_logo_debug</item>
+  </style>
+</resources>

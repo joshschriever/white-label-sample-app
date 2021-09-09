@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <color name="backgroundColor_debug">#FFEB3B</color>
+  <color name="primaryTextColor_debug">#2263E6</color>
+  <color name="secondaryTextColor_debug">#C110DF</color>
+</resources>
