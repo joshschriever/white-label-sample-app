@@ -26,8 +26,11 @@ repositories {
 dependencies {
     implementation(project(":common"))
 
+    implementation("androidx.core:core-ktx:1.6.0")
     implementation("androidx.compose.foundation:foundation:1.0.2")
     implementation("androidx.compose.material:material:1.0.2")
     implementation("androidx.compose.ui:ui:1.0.2")
     implementation("androidx.compose.ui:ui-tooling:1.0.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
+    implementation("androidx.savedstate:savedstate-ktx:1.1.0")
 }
