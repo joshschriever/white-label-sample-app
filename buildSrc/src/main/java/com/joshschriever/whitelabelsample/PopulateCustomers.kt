@@ -114,14 +114,14 @@ internal abstract class PopulateCustomers : DefaultTask() {
         )
 
         drawableDensities.forEach { density ->
-            val densityDir = File(flavorDir, "res/$density").apply { mkdir() }
+            val densityDir = File(flavorDir, "res/mipmap-$density").apply { mkdir() }
             setOf(
                 "ic_launcher.png",
                 "ic_launcher_foreground.png",
                 "ic_launcher_background.png"
             ).forEach {
                 File(densityDir, it)
-                    .writeBytes(AssetsRepo.get("customers/$customerId/android/$density/$it", logger))
+                    .writeBytes(AssetsRepo.get("customers/$customerId/android/drawable-$density/$it", logger))
             }
         }
 
@@ -220,12 +220,6 @@ internal abstract class PopulateCustomers : DefaultTask() {
     companion object {
         private const val TRANSIENT_FLAVOR_DIR_MARKER_NAME = ".transient-customer-flavor-dir-marker"
 
-        private val drawableDensities = listOf(
-            "drawable-mdpi",
-            "drawable-hdpi",
-            "drawable-xhdpi",
-            "drawable-xxhdpi",
-            "drawable-xxxhdpi"
-        )
+        private val drawableDensities = listOf("mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi")
     }
 }
