@@ -12,7 +12,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Crude dependency injection for the sake of example
         CustomerThemeProvider.customerThemeBuilder = CustomerThemeBuilder
 
         setContentView(R.layout.activity_main)

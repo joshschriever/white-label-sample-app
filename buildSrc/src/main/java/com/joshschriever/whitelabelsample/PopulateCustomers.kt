@@ -192,12 +192,12 @@ internal abstract class PopulateCustomers : DefaultTask() {
                     import androidx.compose.ui.res.colorResource
                     import androidx.compose.ui.res.painterResource
                     import androidx.compose.ui.res.stringResource
+                    import com.joshschriever.whitelabelsample.common.BaseCustomerThemeBuilder
                     import com.joshschriever.whitelabelsample.common.CustomerColors
                     import com.joshschriever.whitelabelsample.common.CustomerImages
                     import com.joshschriever.whitelabelsample.common.CustomerStrings
-                    import com.joshschriever.whitelabelsample.common.CustomerThemeProvider
 
-                    object CustomerThemeBuilder : CustomerThemeProvider.ThemeBuilder {
+                    object CustomerThemeBuilder : BaseCustomerThemeBuilder {
                         @Composable override fun colors() = CustomerColors(
 
                 """.trimIndent() + CustomerThemes.themeColorNames.joinToString(",\n") {

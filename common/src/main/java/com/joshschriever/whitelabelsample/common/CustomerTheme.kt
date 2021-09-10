@@ -45,14 +45,10 @@ fun CustomerTheme(content: @Composable () -> Unit) {
     )
 }
 
-object CustomerThemeProvider {
-    lateinit var customerThemeBuilder: ThemeBuilder
-
-    interface ThemeBuilder {
-        @Composable fun colors(): CustomerColors
-        @Composable fun strings(): CustomerStrings
-        @Composable fun images(): CustomerImages
-    }
+interface BaseCustomerThemeBuilder {
+    @Composable fun colors(): CustomerColors
+    @Composable fun strings(): CustomerStrings
+    @Composable fun images(): CustomerImages
 }
 
 internal val LocalCustomerColors = staticCompositionLocalOf<CustomerColors> {
